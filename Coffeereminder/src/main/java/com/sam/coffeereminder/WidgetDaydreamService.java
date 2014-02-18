@@ -13,69 +13,50 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.RemoteViews;
 import android.widget.Toast;
+import android.graphics.Color;
+import android.service.dreams.DreamService;
+import android.widget.TextView;
 
-import java.security.Provider;
 import java.util.Calendar;
 import java.util.Random;
 
-public class WidgetService extends Service {
+public class WidgetDaydreamService extends DreamService {
 
     //private RemoteViews views = new RemoteViews(this.getPackageName(),R.layout.widget);
     private AppWidgetManager appWidgetMan;
     private int widgetId;
-    public static int[] coffee = new int[]{R.drawable.coffeesmall, R.drawable.nocoffeesmall};
-    public int coffestatus = 0;
+    private ImageView daydreamimg;
     String date1, date2, date3;
 
     @Override
-    public IBinder onBind(Intent intent) {
-        return null;
+    public void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        // Allow user touch
+        setInteractive(true);
+        // Hide system UI
+        setFullscreen(true);
+        // Set the dream layout
+        setContentView(R.layout.daydream);
+        RemoteViews viewss = new RemoteViews(this.getPackageName(),R.layout.daydream);
+
     }
-    public int coffeArray() {
-        if(coffestatus+1 == coffee.length){
-            coffestatus = 0;
-            return coffee.length;
-        } else{
-            coffestatus += 1;
-            return coffestatus;
-        }
-    }
+
 
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
         //views.set
-        Log.i("widgett settings", "yees");
+        Log.i("daydream settings", "yees");
 
         updateWidget(intent);
 
         stopSelf(startId);
-
         return START_STICKY;
     }
-
-
-    // when report is getting fetched
-    /*public void progressFeedback(){
-        views.setTextViewText(R.id.update_text, "Loading...");
-        appWidgetMan.updateAppWidget(widgetId, views);
-    }
-
-    // if a network error occurs
-    public void errorFeedback(){
-        views.setTextViewText(R.id.update_text, "Error occured!");
-        appWidgetMan.updateAppWidget(widgetId, views);
-    }
-
-    // when the report is done loading
-    public void completeFeedback(){
-        //set texts to views
-        views.setTextViewText(R.id.update_text, "");
-        appWidgetMan.updateAppWidget(widgetId, views);
-    }*/
 
     private void updateWidget(Intent intent){
         if (intent != null){

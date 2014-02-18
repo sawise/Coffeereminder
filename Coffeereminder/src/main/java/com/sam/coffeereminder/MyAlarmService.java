@@ -24,7 +24,7 @@ public class MyAlarmService extends Service {
     private NotificationManager mManager;
     int coffeeimg = R.drawable.nocoffeesmall;
     private Handler handler = new Handler();
-    private int repeat = 20;
+    private int repeat = 60;
     private int p = 0;
     private Timer timer = new Timer();
 
@@ -54,12 +54,13 @@ public class MyAlarmService extends Service {
        mManager = (NotificationManager) this.getApplicationContext().getSystemService(this.getApplicationContext().NOTIFICATION_SERVICE);
         Intent intent1 = new Intent(this.getApplicationContext(), StopAlarm.class);
         final int widgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
-        Notification notification = new Notification(R.drawable.ic_launcher, "Time for school =)", System.currentTimeMillis());
+        Notification notification = new Notification(R.drawable.coffeesmall, "Coffeetime!!!", System.currentTimeMillis());
         intent1.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         PendingIntent pendingNotificationIntent = PendingIntent.getActivity(this.getApplicationContext(), 0, intent1, PendingIntent.FLAG_UPDATE_CURRENT);
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
         notification.setLatestEventInfo(getApplicationContext(), "Alarm", "Alarm is reached!", pendingNotificationIntent);
+
 
         mManager.notify(0, notification);
 
@@ -70,39 +71,6 @@ public class MyAlarmService extends Service {
         final AppWidgetManager appWidgetMan = AppWidgetManager.getInstance(this);
         //mp.setLooping(true);
 
-
-        Timer timer1 = new Timer();
-
-
-/*        new Thread(new Runnable() {
-
-            int img = R.drawable.nocoffeesmall;
-            public void run() {
-                while (p < repeat) {
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    handler.post(new Runnable() {
-                        public void run() {
-                           if (coffeeimg == R.drawable.nocoffeesmall){
-                                views.setImageViewResource(R.id.coffestatus, coffeeimg);
-                                appWidgetMan.updateAppWidget(widgetId, views);
-                                coffeeimg = R.drawable.coffeesmall;
-                            } else {
-                               coffeeimg = R.drawable.nocoffeesmall;
-                                views.setImageViewResource(R.id.coffestatus, coffeeimg);
-                                appWidgetMan.updateAppWidget(widgetId, views);
-                            }
-                            Log.i("image change", p+"");
-                        }
-                    });
-                    p++;
-                }
-            }
-        }).start();
-*/
         timer.schedule(new TimerTask() {
 
             public void run() {

@@ -78,6 +78,7 @@ public class WidgetProvider extends AppWidgetProvider {
 
             // intent to call weather activity
             Intent activityIntent = new Intent(context, WidgetSettings.class);
+            activityIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
             activityIntent.setAction("launchweatheractivity");
             PendingIntent activityPendingIntent = PendingIntent.getActivity(context, 0, activityIntent, 0);
 

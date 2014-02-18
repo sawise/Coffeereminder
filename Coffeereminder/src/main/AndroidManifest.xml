@@ -22,6 +22,13 @@
         <service android:name="com.sam.coffeereminder.MyAlarmService" />
         <service android:name="com.sam.coffeereminder.WidgetService" />
 
+        <service android:name=".WidgetDaydreamService" android:exported="true"
+            android:icon="@drawable/coffeesmall" android:label="Coffeereminder" >
+            <intent-filter>
+                <action android:name="android.service.dreams.DreamService" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
 
 
         <receiver

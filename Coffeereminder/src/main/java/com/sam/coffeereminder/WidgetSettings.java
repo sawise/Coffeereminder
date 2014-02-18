@@ -52,19 +52,19 @@ public class WidgetSettings extends Activity implements OnClickListener {
         Long alarm1_prefs = prefs.getLong("alarm1", 0);
         int hours1   = (int) ((alarm1_prefs/ (1000*60*60)) % 24);
         int minutes1 = (int) ((alarm1_prefs/ (1000*60)) % 60);
-        alarm1.setCurrentHour(hours1);
+        alarm1.setCurrentHour(hours1+1);
         alarm1.setCurrentMinute(minutes1);
 
         Long alarm2_prefs = prefs.getLong("alarm2", 0);
         int hours2   = (int) ((alarm2_prefs/ (1000*60*60)) % 24);
         int minutes2 = (int) ((alarm2_prefs/ (1000*60)) % 60);
-        alarm2.setCurrentHour(hours2);
+        alarm2.setCurrentHour(hours2+1);
         alarm2.setCurrentMinute(minutes2);
 
         Long alarm3_prefs = prefs.getLong("alarm3", 0);
         int hours3   = (int) ((alarm3_prefs/ (1000*60*60)) % 24);
         int minutes3 = (int) ((alarm3_prefs/ (1000*60)) % 60);
-        alarm3.setCurrentHour(hours3);
+        alarm3.setCurrentHour(hours3+1);
         alarm3.setCurrentMinute(minutes3);
         closeButton.setOnClickListener(this);
         saveButton.setOnClickListener(this);
@@ -79,7 +79,6 @@ public class WidgetSettings extends Activity implements OnClickListener {
         }
 
         if(v == saveButton){
-
             prefs = this.getSharedPreferences("com.sam.coffeereminder", Context.MODE_PRIVATE);
             Calendar currentdate = Calendar.getInstance();
             Calendar al1 = Calendar.getInstance();
@@ -88,10 +87,11 @@ public class WidgetSettings extends Activity implements OnClickListener {
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
             al1.set(currentdate.get(Calendar.YEAR), currentdate.get(Calendar.MONTH), currentdate.get(Calendar.DAY_OF_MONTH), alarm1.getCurrentHour(), alarm1.getCurrentMinute(),0);
-            if(currentdate.getTimeInMillis() < al1.getTimeInMillis()){
-                long a = al1.getTimeInMillis()+60000;
-                prefs.edit().putLong("alarm1", a).commit();
-                Log.i("calendar111", dateFormat.format(a));
+            if(currentdate.getTimeInMillis() > al1.getTimeInMillis()){
+                int d = currentdate.get(Calendar.DAY_OF_MONTH);
+                al1.set(Calendar.DAY_OF_MONTH,d+1);
+                prefs.edit().putLong("alarm1", al1.getTimeInMillis()).commit();
+                Log.i("calendar111 tomorrow", ""+dateFormat.format(al1.getTimeInMillis()));
             } else {
                 prefs.edit().putLong("alarm1", al1.getTimeInMillis()).commit();
                 Log.i("calendar111", dateFormat.format(al1.getTimeInMillis()));
@@ -100,24 +100,30 @@ public class WidgetSettings extends Activity implements OnClickListener {
 
 
             al2.set(currentdate.get(Calendar.YEAR), currentdate.get(Calendar.MONTH),currentdate.get(Calendar.DAY_OF_MONTH), alarm2.getCurrentHour(), alarm2.getCurrentMinute(),0);
-            if(currentdate.getTimeInMillis() < al2.getTimeInMillis()){
-                long a = al2.getTimeInMillis()+60000;
-                prefs.edit().putLong("alarm2", a).commit();
-                Log.i("calendar112", dateFormat.format(a));
+            if(currentdate.getTimeInMillis() > al2.getTimeInMillis()){
+                int d = currentdate.get(Calendar.DAY_OF_MONTH);
+                al2.set(Calendar.DAY_OF_MONTH,d+1);
+                prefs.edit().putLong("alarm2", al2.getTimeInMillis()).commit();
+                Log.i("calendar112 tomorrow", dateFormat.format(al2.getTimeInMillis()));
             } else {
                 prefs.edit().putLong("alarm2", al2.getTimeInMillis()).commit();
                 Log.i("calendar112", dateFormat.format(al2.getTimeInMillis()));
             }
 
             al3.set(currentdate.get(Calendar.YEAR), currentdate.get(Calendar.MONTH),currentdate.get(Calendar.DAY_OF_MONTH), alarm3.getCurrentHour(), alarm3.getCurrentMinute(),0);
-            if(currentdate.getTimeInMillis() < al3.getTimeInMillis()){
-                long a = al3.getTimeInMillis()+60000;
-                prefs.edit().putLong("alarm3", a).commit();
-                Log.i("calendar113", dateFormat.format(a));
+            Log.i("calendar113 date", dateFormat.format(al3.getTimeInMillis())+"<->"+dateFormat.format(currentdate.getTimeInMillis()));
+            Log.i("calendar113 millis", al3.getTimeInMillis()+"<->"+currentdate.getTimeInMillis());
+            if(currentdate.getTimeInMillis() > al3.getTimeInMillis()){
+                int d = currentdate.get(Calendar.DAY_OF_MONTH);
+                al3.set(Calendar.DAY_OF_MONTH,d+1);
+                prefs.edit().putLong("alarm3", al3.getTimeInMillis()).commit();
+                Log.i("calendar113 tomorrow", dateFormat.format(al3.getTimeInMillis()));
             } else {
                 prefs.edit().putLong("alarm3", al3.getTimeInMillis()).commit();
                 Log.i("calendar113", dateFormat.format(al3.getTimeInMillis()));
+                Log.i("calendar113", dateFormat.format(currentdate.getTimeInMillis()));
             }
+            //finish();
         }
     }
 }

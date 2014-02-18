@@ -10,7 +10,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
     <TimePicker
         android:id="@+id/alarm1"
         android:layout_width="match_parent"
@@ -24,6 +28,7 @@
         android:id="@+id/alarm3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+        </LinearLayout>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
