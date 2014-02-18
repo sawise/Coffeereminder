@@ -4,7 +4,6 @@
     android:minHeight="50dp"
     android:updatePeriodMillis="1800000"
     android:resizeMode="horizontal|vertical"
-    android:
     android:widgetCategory="keyguard|home_screen"
     android:initialLayout="@layout/widget">
 </appwidget-provider>

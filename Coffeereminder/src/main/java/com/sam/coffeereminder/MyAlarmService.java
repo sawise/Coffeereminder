@@ -59,6 +59,10 @@ public class MyAlarmService extends Service {
 
         PendingIntent pendingNotificationIntent = PendingIntent.getActivity(this.getApplicationContext(), 0, intent1, PendingIntent.FLAG_UPDATE_CURRENT);
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
+        notification.ledARGB = 0xff0000ff;          // Blue flash
+        notification.ledOnMS = 100;                 // LED's on for 300 ms
+        notification.ledOffMS = 100;               // LEDs off for 1 second
+        notification.flags |= Notification.FLAG_SHOW_LIGHTS;
         notification.setLatestEventInfo(getApplicationContext(), "Alarm", "Alarm is reached!", pendingNotificationIntent);
 
 
