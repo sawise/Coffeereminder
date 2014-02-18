@@ -157,7 +157,6 @@ public class MainActivity extends ActionBarActivity  implements View.OnClickList
         alarmtime.set(y, mo, d, h, mi, 0);
         alarmtime_text = "The alarm will start at "+h+":"+mi;;
 
-
         if(buttonView == set_alarm && isChecked){
             if(repeat_alarm.isChecked()) {
                 repeat_alarm.setEnabled(true);

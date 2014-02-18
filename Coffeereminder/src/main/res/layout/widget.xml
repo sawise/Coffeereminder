@@ -13,8 +13,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <ImageView
-        android:id="@+id/coffestatus"
-        android:src="@drawable/nocoffeesmall"
+        android:id="@+id/widgetsettings"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="10dip"
+        android:src="@drawable/settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 </LinearLayout>

@@ -74,14 +74,14 @@ public class WidgetProvider extends AppWidgetProvider {
             PendingIntent pendingIntent = PendingIntent.getService(context, appWidgetId, intent, 0);
             Log.i("widgett", "tesssting");
             views.setOnClickPendingIntent(R.id.coffestatus, pendingIntent);
-            
+
 
             // intent to call weather activity
-            Intent activityIntent = new Intent(context, MainActivity.class);
+            Intent activityIntent = new Intent(context, WidgetSettings.class);
             activityIntent.setAction("launchweatheractivity");
             PendingIntent activityPendingIntent = PendingIntent.getActivity(context, 0, activityIntent, 0);
 
-            //views.setOnClickPendingIntent(R.id.coffestatus, activityPendingIntent);
+            views.setOnClickPendingIntent(R.id.widgetsettings, activityPendingIntent);
             appWidgetManager.updateAppWidget(appWidgetId, views);
         }
     }

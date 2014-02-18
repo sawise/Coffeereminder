@@ -27,6 +27,7 @@ public class WidgetService extends Service {
     private int widgetId;
     public static int[] coffee = new int[]{R.drawable.coffeesmall, R.drawable.nocoffeesmall};
     public int coffestatus = 0;
+    String date1, date2, date3;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -99,15 +100,48 @@ public class WidgetService extends Service {
                     PendingIntent pendingIntent = PendingIntent.getService(this.getApplicationContext(), 0, myIntent, 0);
 
                     Calendar alarmtime = Calendar.getInstance();
-                    String date = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new java.util.Date (alarmtime.getTimeInMillis()));
-                    Log.i("alarm enabled", date+"|"+alarmtime.getTimeInMillis());
-                    alarmtime.set(2014, 1, 18, 10, 0, 0);
-                    AlarmManager alarmManager = (AlarmManager)this.getSystemService(this.ALARM_SERVICE);
-                    alarmManager.set(AlarmManager.RTC_WAKEUP,  alarmtime.getTimeInMillis(), pendingIntent);
-                    //alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, 1392714600, 1392717600, pendingIntent);
-                    date = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new java.util.Date (alarmtime.getTimeInMillis()));
-                    Log.i("alarm enabled", date+"|"+alarmtime.getTimeInMillis());
-                    Toast.makeText(this.getApplicationContext(), "Alarm enabled at "+date, Toast.LENGTH_LONG).show();
+                Calendar alarmtime2 = Calendar.getInstance();
+                Calendar alarmtime3 = Calendar.getInstance();
+
+
+                    SharedPreferences prefs = this.getSharedPreferences("com.sam.coffeereminder", Context.MODE_PRIVATE);
+                    Long alarm1 = prefs.getLong("alarm1", 0);
+                Long alarm2 = prefs.getLong("alarm2", 0);
+                Long alarm3 = prefs.getLong("alarm3", 0);
+
+                    if(alarm1 != null){
+                        long millis = alarm1;
+                        Log.i("calendarr1",alarm1+"<->"+millis);
+                        alarmtime.setTimeInMillis(millis);
+                    }
+                if(alarm2 != null){
+                    long millis = alarm2;
+                    Log.i("calendarr2",alarm1+"<->"+millis);
+                    alarmtime2.setTimeInMillis(millis);
+                }
+                if(alarm3 != null){
+                    long millis = alarm3;
+                    Log.i("calendarr3",alarm1+"<->"+millis);
+                    alarmtime3.setTimeInMillis(millis);
+                }
+
+                    AlarmManager alarmManager1 = (AlarmManager)this.getSystemService(this.ALARM_SERVICE);
+                    alarmManager1.set(AlarmManager.RTC_WAKEUP,  alarmtime.getTimeInMillis(), pendingIntent);
+
+
+                AlarmManager alarmManager2 = (AlarmManager)this.getSystemService(this.ALARM_SERVICE);
+                alarmManager2.set(AlarmManager.RTC_WAKEUP,  alarmtime2.getTimeInMillis(), pendingIntent);
+
+                AlarmManager alarmManager3 = (AlarmManager)this.getSystemService(this.ALARM_SERVICE);
+                alarmManager3.set(AlarmManager.RTC_WAKEUP,  alarmtime3.getTimeInMillis(), pendingIntent);
+
+                    date1 = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new java.util.Date (alarmtime.getTimeInMillis()));
+                date2 = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new java.util.Date (alarmtime2.getTimeInMillis()));
+                date3 = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new java.util.Date (alarmtime3.getTimeInMillis()));
+
+                String toastMessage = "";
+
+                    Toast.makeText(this.getApplicationContext(), "Alarm enabled at "+date1+" and at "+date2+" and at "+date3, Toast.LENGTH_LONG).show();
 
 
 
