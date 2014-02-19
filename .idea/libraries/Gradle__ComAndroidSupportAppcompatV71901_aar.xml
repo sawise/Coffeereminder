@@ -1,8 +1,7 @@
 <component name="libraryTable">
   <library name="Gradle: ComAndroidSupportAppcompatV71901.aar">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/Coffeereminder/build/exploded-bundles/ComAndroidSupportAppcompatV71901.aar/res" />
-      <root url="jar://$PROJECT_DIR$/Coffeereminder/build/exploded-bundles/ComAndroidSupportAppcompatV71901.aar/classes.jar!/" />
+      <root url="jar://$PROJECT_DIR$/instasam/build/exploded-bundles/ComAndroidSupportAppcompatV71901.aar/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
